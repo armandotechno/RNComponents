@@ -1,9 +1,10 @@
 import { useRef } from 'react';
-import { View, StyleSheet, Animated, Button } from 'react-native'
+import { View, StyleSheet, Animated, Button, Easing } from 'react-native'
 
 export default function Animation101Screen() {
   
     const opacity = useRef( new Animated.Value( 0 ) ).current;
+    const top     = useRef( new Animated.Value( -100 ) ).current;
 
     const fadeIn = () => {
         Animated.timing (
@@ -14,6 +15,16 @@ export default function Animation101Screen() {
                 useNativeDriver: true
             }
         ).start()
+
+        Animated.timing (
+            top,
+            {
+                toValue: 0,
+                duration: 800,
+                useNativeDriver: true,
+                easing: Easing.bounce
+            }
+        ).start()
     }
 
     const fadeOut = () => {
@@ -21,8 +32,18 @@ export default function Animation101Screen() {
             opacity,
             {
                 toValue: 0,
-                duration: 300,
+                duration: 500,
                 useNativeDriver: true
+            }
+        ).start()
+
+        Animated.timing (
+            top,
+            {
+                toValue: -110,
+                duration: 1000,
+                useNativeDriver: true,
+                // easing: Easing.bounce
             }
         ).start()
     }
@@ -35,6 +56,9 @@ export default function Animation101Screen() {
             ...styles.purpleBox, 
             opacity,
             marginBottom: 20,
+            transform: [{
+                translateY: top
+            }]
         }}/>
 
         <Button 
