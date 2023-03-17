@@ -1,25 +1,48 @@
 import { useState } from 'react';
-import { View, Text, Switch, Platform } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
+import CustomSwitch from '../components/CustomSwitch';
 import HeaderTitle from '../components/HeaderTitle';
 
 export default function SwitchScreen() {
 
-  const [ isEnabled, setIsEnabled ] = useState(false);
-  const toggleSwitch = () => setIsEnabled( !isEnabled );
+  const [ state, setState ] = useState({
+    isActive: true,
+    isHungry: true,
+    isHappy: false,
+  })
+
+  const { isActive, isHungry, isHappy } = state;
+
+  const onChange = ( value: boolean, field: string ) => {
+    setState({
+      ...state,
+      [field]: value
+    })
+  }
 
   return (
     <View style={{ marginHorizontal: 20 }}>
 
       <HeaderTitle title='Switches'/>
-      
-      <Switch
-        trackColor={{false: '#D9D9DB', true: '#973ec4'}}
-        thumbColor={ (Platform.OS === 'android') ? '#af3de4': '' }
-        ios_backgroundColor="#3e3e3e"
-        onValueChange={toggleSwitch}
-        value={isEnabled}
-      />
+
+      <View style={ styles.switchRow }>
+        <Text style={ styles.switchText }>isActive</Text>
+        <CustomSwitch isOn={ isActive } onChange={ (value) => onChange( value, 'isActive' )}/>
+      </View>
+
+      <Text style={ styles.switchText }>{ JSON.stringify( state, null, 5 ) }</Text>
 
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  switchRow:{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  switchText: {
+    fontSize: 25,
+  },
+});
