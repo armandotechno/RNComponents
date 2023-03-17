@@ -7,7 +7,7 @@ interface Props {
     menuItem: MenuItem;
 }
 
-export default function FlatListMenuItem({ menuItem: { icon, name, component } }: Props ) {
+export const FlatListMenuItem = ({ menuItem: { icon, name, component } }: Props ) => {
 
     const navigation = useNavigation();
 
