@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { View, Text, Switch, Platform } from 'react-native'
+import HeaderTitle from '../components/HeaderTitle';
 
 export default function SwitchScreen() {
 
@@ -7,11 +8,13 @@ export default function SwitchScreen() {
   const toggleSwitch = () => setIsEnabled( !isEnabled );
 
   return (
-    <View style={{ marginTop: 100 }}>
+    <View style={{ marginHorizontal: 20 }}>
+
+      <HeaderTitle title='Switches'/>
       
       <Switch
-        trackColor={{false: '#D9D9DB', true: '#5856D6'}}
-        thumbColor={ (Platform.OS === 'android') ? '#5856D6': '' }
+        trackColor={{false: '#D9D9DB', true: '#973ec4'}}
+        thumbColor={ (Platform.OS === 'android') ? '#af3de4': '' }
         ios_backgroundColor="#3e3e3e"
         onValueChange={toggleSwitch}
         value={isEnabled}
