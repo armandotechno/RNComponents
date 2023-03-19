@@ -1,7 +1,6 @@
 import { View, Text, TextInput, StyleSheet, KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
 import HeaderTitle from '../components/HeaderTitle';
 import { styles } from '../theme/appTheme';
-import { useState } from 'react';
 import { useForm } from '../hooks/useForm';
 import CustomSwitch from '../components/CustomSwitch';
 
