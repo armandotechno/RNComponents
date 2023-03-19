@@ -6,7 +6,7 @@ interface Props {
     title: string;
 }
 
-export default function HeaderTitle({ title }: Props) {
+export const HeaderTitle = ({ title }: Props) => {
 
     const { top } = useSafeAreaInsets();
 

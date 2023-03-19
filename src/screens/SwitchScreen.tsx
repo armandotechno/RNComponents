@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native'
 import CustomSwitch from '../components/CustomSwitch';
-import HeaderTitle from '../components/HeaderTitle';
+import { HeaderTitle } from '../components/HeaderTitle';
 
 export default function SwitchScreen() {
 

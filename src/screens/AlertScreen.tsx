@@ -2,7 +2,7 @@ import { View, Button, Alert } from 'react-native'
 
 import prompt from 'react-native-prompt-android';
 
-import HeaderTitle from '../components/HeaderTitle';
+import { HeaderTitle } from '../components/HeaderTitle';
 import { styles } from '../theme/appTheme';
 
 export default function AlertScreen() {
