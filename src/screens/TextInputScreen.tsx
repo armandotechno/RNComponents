@@ -2,21 +2,18 @@ import { View, Text, TextInput, StyleSheet, KeyboardAvoidingView, Platform, Scro
 import HeaderTitle from '../components/HeaderTitle';
 import { styles } from '../theme/appTheme';
 import { useState } from 'react';
+import { useForm } from '../hooks/useForm';
+import CustomSwitch from '../components/CustomSwitch';
 
 export default function TextInputScreen() {
 
-    const [form, setForm] = useState({
+    const { onChange, form, isSuscribed } = useForm({
         name: '',
         email: '',
         phone: '',
-    })
-
-    const onChange = ( value: string, field: string ) => {
-        setForm({
-            ...form,
-            [field]: value
-        })
-    }
+        isSuscribed: false
+    });
+    
 
     return (
         <KeyboardAvoidingView
@@ -50,6 +47,11 @@ export default function TextInputScreen() {
                         keyboardType="phone-pad"
                     />
 
+                <View style={ stylesScreen.switchRow }>
+                    <Text style={ stylesScreen.switchText }>Suscribirse</Text>
+                    <CustomSwitch isOn={ isSuscribed } onChange={ (value) => onChange( value, 'isSuscribed' )}/>
+                </View>
+
                     <HeaderTitle title={ JSON.stringify( form, null, 3 ) } />
                 </View>
 
@@ -69,4 +71,13 @@ const stylesScreen = StyleSheet.create({
         borderRadius: 10,
         marginVertical: 10,
     },
+    switchRow:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginVertical: 5,
+      },
+      switchText: {
+        fontSize: 25,
+      },
 });
