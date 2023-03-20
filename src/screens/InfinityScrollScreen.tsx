@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, View } from "react-native"
+import { ActivityIndicator, FlatList, Image, StyleSheet, Text, View } from "react-native"
 import { HeaderTitle } from "../components/HeaderTitle"
 import { useState } from 'react';
 
@@ -13,14 +13,20 @@ export const InfinityScrollScreen = () => {
         newArray[i] = numbers.length + i;
       }
 
-      setNumbers([...numbers, ...newArray])
+      setTimeout(() => {
+        setNumbers([...numbers, ...newArray])
+      }, 1500)
     }
 
     const renderItem = ( item: number ) => {
       return (
-        <Text style={ styles.textItem }>
-          { item }
-        </Text>
+        <Image 
+          source={{ uri: `https://picsum.photos/id/${ item }/500/400` }}
+          style={{
+            width: '100%',
+            height: 400,
+          }}
+        />
       )
     }
 
@@ -35,6 +41,12 @@ export const InfinityScrollScreen = () => {
 
           onEndReached={ loadMore }
           onEndReachedThreshold={ 0.5 }
+
+          ListFooterComponent={ () => (
+            <View style={{ height: 100, justifyContent: 'center', alignItems: 'center' }}>
+              <ActivityIndicator size={ 25 } color="#973ec4" />
+            </View>
+          )}
         />
       </View>
     )
