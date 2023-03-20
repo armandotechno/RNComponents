@@ -1,6 +1,6 @@
 import { Text } from "react-native";
 import { SectionList, View } from "react-native"
-import { HeaderTitle } from "../components/HeaderTitle"
+import { HeaderTitle } from '../components/HeaderTitle';
 import { ItemSeparator } from "../components/ItemSeparator";
 import { styles } from '../theme/appTheme';
 
@@ -16,11 +16,11 @@ const casas: Casas[] = [
     },
     {
       casa: "Marvel Comics",
-      data: ["Antman", "Thor", "Spiderman","Antman", "Iron Man", "Captain America", "Hulk", "Black Widow", "Daredevil" ]
+      data: ["Antman", "Thor", "Spiderman","Antman", "Iron Man", "Captain America", "Hulk", "Black Widow", "Daredevil", "The Avengers" ]
     },
     {
       casa: "Anime",
-      data: ["Kenshin", "Goku", "Saitama", "Naruto", "Asuna", "David", "Isagi", "Nagi", "Kageyama" ]
+      data: ["Kenshin", "Goku", "Saitama", "Naruto", "Asuna", "David", "Isagi", "Nagi", "Kageyama", "Kaguya", "Thorfinn" ]
     },
     {
         casa: "Nombres",
@@ -34,15 +34,24 @@ export const SectionListScreen = () => {
         <SectionList 
             sections={ casas } // aquí se pasa la data
             keyExtractor={ (item, index) => item + index }
+
+            ListHeaderComponent={ () => <HeaderTitle title="List Section"/> }
+            ListFooterComponent={ () => <HeaderTitle title={`Total de casas: ${ casas.length }`} /> }
+
             renderItem={ ({ item }) => <Text>{ item }</Text> }
             stickySectionHeadersEnabled
+
             renderSectionHeader={ ({ section: { casa } }) => (
                 <View style={{ backgroundColor: "white" }}>
                     <HeaderTitle title={ casa } />
                 </View>
             )}
-            ItemSeparatorComponent={ ItemSeparator }
+            renderSectionFooter={ ({ section }) => (
+              <HeaderTitle title={`Total: ${ section.data.length }`} />
+            )}
 
+            SectionSeparatorComponent={ () => <ItemSeparator /> }
+            showsVerticalScrollIndicator={ false }
         />
     </View>
   )
