@@ -1,10 +1,12 @@
-import { Dimensions, Image, ImageSourcePropType, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Animated, Dimensions, Image, ImageSourcePropType, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 import Carousel, { Pagination } from 'react-native-snap-carousel'
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
+import useAnimation from '../hooks/useAnimation';
 
-const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+const { width: screenWidth } = Dimensions.get('window');
 
 interface Slide {
     title: string;
@@ -33,6 +35,10 @@ const items: Slide[] = [
 export const SlidesScreen = () => {
 
     const [ activeIndex, setActiveIndex ] = useState( 0 );
+    const isVisible = useRef( false );
+
+    const { opacity, fadeIn } = useAnimation();
+    const navigation = useNavigation();
 
     const renderItem = ( item: Slide ) => {
         return (
@@ -74,6 +80,10 @@ export const SlidesScreen = () => {
             vertical={ false }
             onSnapToItem={ (index) => {
                 setActiveIndex( index );
+                if ( index === items.length - 1 ) {
+                    isVisible.current = true
+                    fadeIn();
+                }
             }}
         />
 
@@ -94,6 +104,11 @@ export const SlidesScreen = () => {
                 }}
             />
             
+        <Animated.View
+            style={{
+                opacity
+            }}
+        >
             <TouchableOpacity style={{
                 flexDirection: 'row',
                 backgroundColor: '#5856D6',
@@ -104,6 +119,11 @@ export const SlidesScreen = () => {
                 alignItems: 'center',
             }}
                 activeOpacity={ 0.8 }
+                onPress={ () => {
+                    if ( isVisible.current ) {
+                        navigation.navigate('HomeScreen' as never)
+                    }
+                }}
             > 
                 <Text style={{
                     fontSize: 25,
@@ -117,6 +137,8 @@ export const SlidesScreen = () => {
                     size={ 30 }
                 />
             </TouchableOpacity>
+        </Animated.View>
+
         </View>
       </SafeAreaView>
     )
