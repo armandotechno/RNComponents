@@ -28,7 +28,7 @@ export const FlatListMenuItem = ({ menuItem: { icon, name, component } }: Props 
                     size={ 23 }               
                 />
             
-                <Text style={ styles.itemText }>
+                <Text style={{ ...styles.itemText, color: colors.text }}>
                     { name }
                 </Text>
 

@@ -1,10 +1,15 @@
+import { useContext } from 'react';
 import { View, Text, TextInput, StyleSheet, KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
+
 import { HeaderTitle } from '../components/HeaderTitle';
 import { styles } from '../theme/appTheme';
 import { useForm } from '../hooks/useForm';
 import CustomSwitch from '../components/CustomSwitch';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
 
 export default function TextInputScreen() {
+
+    const { theme: { colors, dividerColor } } = useContext( ThemeContext );
 
     const { onChange, form, isSuscribed } = useForm({
         name: '',
@@ -23,16 +28,26 @@ export default function TextInputScreen() {
                     <HeaderTitle title="InputText" />
 
                     <TextInput 
-                        style={ stylesScreen.textInputStyle }    
-                        placeholder="Ingrese su nombre"     
+                        style={{ 
+                            ...stylesScreen.textInputStyle, 
+                            borderColor: colors.text,
+                            color: colors.text
+                        }}    
+                        placeholder="Ingrese su nombre"
+                        placeholderTextColor={ dividerColor }     
                         autoCorrect={ false }  
                         autoCapitalize="words"
                         onChangeText={ (value) => onChange( value, 'name')}
                     />
                     
                     <TextInput 
-                        style={ stylesScreen.textInputStyle }
-                        placeholder="Ingrese su email"  
+                        style={{ 
+                            ...stylesScreen.textInputStyle, 
+                            borderColor: colors.text,
+                            color: colors.text
+                        }}    
+                        placeholder="Ingrese su email"
+                        placeholderTextColor={ dividerColor }  
                         autoCorrect={ false }  
                         autoCapitalize="none"
                         onChangeText={ (value) => onChange( value, 'email')}
@@ -40,14 +55,19 @@ export default function TextInputScreen() {
                     />
 
                     <TextInput 
-                        style={ stylesScreen.textInputStyle }   
-                        placeholder="Ingrese su teléfono"     
+                        style={{ 
+                            ...stylesScreen.textInputStyle, 
+                            borderColor: colors.text,
+                            color: colors.text
+                        }}    
+                        placeholder="Ingrese su teléfono" 
+                        placeholderTextColor={ dividerColor }    
                         onChangeText={ (value) => onChange( value, 'phone')}  
                         keyboardType="phone-pad"
                     />
 
                 <View style={ stylesScreen.switchRow }>
-                    <Text style={ stylesScreen.switchText }>Suscribirse</Text>
+                    <Text style={{ ...stylesScreen.switchText, color: colors.text }}>Suscribirse</Text>
                     <CustomSwitch isOn={ isSuscribed } onChange={ (value) => onChange( value, 'isSuscribed' )}/>
                 </View>
 
